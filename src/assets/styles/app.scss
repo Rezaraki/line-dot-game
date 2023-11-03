@@ -2,6 +2,20 @@
 @import 'bootstrap/dist/css/bootstrap-reboot.css';
 @import 'bootstrap/dist/css/bootstrap-grid.css';
 
+.game-container {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), auto); /* Change 3 to your desired number of columns */
+  grid-template-rows: repeat(var(--rows), auto); /* Change 4 to your desired number of rows */
+  gap: 10px;
+  padding: 10px;
+}
+.cell {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+}
 main {
   background-color: blue;
 }
