@@ -1,5 +1,5 @@
 import React, { FormEvent, useRef } from 'react';
-import { ICellObj, TUsers } from '../types';
+import { ICellObj, IDimentions, TUsers } from '../types';
 import { countScores } from '../services';
 import { EUsers } from '../common';
 
