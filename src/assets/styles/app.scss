@@ -5,6 +5,7 @@
 .wrapper {
   display: flex;
   justify-content: center;
+  gap: 10px;
 }
 form {
   input {
@@ -30,6 +31,9 @@ form {
   padding: 20px;
 }
 
-main {
-  // background-color: blue;
+.user1 {
+  background-color: rgb(97, 97, 226);
+}
+.user2 {
+  background-color: rgb(237, 116, 116);
 }

@@ -46,16 +46,16 @@
       display: none;
     }
   }
-  user1 {
-    background-color: blue;
+  &.user1 {
+    background-color: rgb(97, 97, 226);
   }
-  user2 {
-    background-color: red;
+  &.user2 {
+    background-color: rgb(237, 116, 116);
   }
   .chosen {
     background-color: blueviolet;
   }
-  &.completed {
-    background-color: black;
-  }
+  // &.completed {
+  //   background-color: black;
+  // }
 }

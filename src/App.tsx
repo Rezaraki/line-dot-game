@@ -1,14 +1,18 @@
 import React, { CSSProperties, FormEvent, useMemo, useRef, useState } from 'react';
 import './assets/styles/app.scss';
-import { ICellObj, TDirections } from './types';
+import { ICellObj, TDirections, TUsers } from './types';
 import CellObj from './services/CellObj';
 import Cell from './components/Cell';
-import { findNeighbour, updateNeighbourLine, useRerender } from './services';
+import { countScores, findNeighbour, updateNeighbourLine, useRerender } from './services';
+import { EUsers } from './common';
 
 const App = () => {
   const rerender = useRerender();
   const [dimentions, setDimentions] = useState({ cols: 5, rows: 5 });
+  const [userPlaying, setUserPlaying] = useState<TUsers>(EUsers.First);
 
+  const changeUser = () =>
+    setUserPlaying(userPlaying === EUsers.First ? EUsers.second : EUsers.First);
   const formRef = useRef<HTMLFormElement>(null);
 
   const totalCells = dimentions.cols * dimentions.rows;
@@ -22,10 +26,15 @@ const App = () => {
       ),
     [dimentions],
   );
-
-  const updateNeighbourLineBinded = (curCellObj: ICellObj, direction: TDirections) => {
+  const user1Score = 0;
+  const user2Score = 1;
+  const updateNeighbourLineBinded = (
+    curCellObj: ICellObj,
+    direction: TDirections,
+    user: TUsers,
+  ) => {
     const neighbourId = findNeighbour(cellsArr, curCellObj, direction);
-    updateNeighbourLine(cellsArr, direction, neighbourId, rerender);
+    updateNeighbourLine(cellsArr, direction, neighbourId, user, rerender);
   };
 
   function onSubmitHandle(event: FormEvent) {
@@ -49,6 +58,11 @@ const App = () => {
           <button>change board size </button>
         </form>
       </div>
+      <div className="wrapper">it's user{userPlaying}'s turn.</div>
+      <div className="wrapper">
+        <div className="user1">user1: {countScores(cellsArr, EUsers.First)}</div>
+        <div className="user2">user2: {countScores(cellsArr, EUsers.second)}</div>
+      </div>
       <div className="wrapper">
         <div
           className="game-container"
@@ -58,9 +72,9 @@ const App = () => {
             <Cell
               key={cell.id}
               cellObj={cell}
-              cols={dimentions.cols}
-              rows={dimentions.rows}
               updateNeighbourLine={updateNeighbourLineBinded}
+              changeUser={changeUser}
+              user={userPlaying}
             />
           ))}
         </div>

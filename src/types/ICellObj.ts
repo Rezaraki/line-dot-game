@@ -1,4 +1,5 @@
 import { TDirections } from './TDirections';
+import { TUsers } from './TUsers';
 
 export interface ICellObj {
   id: number;
@@ -11,5 +12,5 @@ export interface ICellObj {
   row: number;
   col: number;
 
-  updateLine(direction: TDirections, updateTo?: boolean): void;
+  updateLine(direction: TDirections, user: TUsers, updateTo?: boolean): void;
 }

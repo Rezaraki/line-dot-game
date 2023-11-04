@@ -1,5 +1,5 @@
 import { directionsObj } from '../common';
-import { ICellObj, TDirections } from '../types';
+import { ICellObj, TDirections, TUsers } from '../types';
 
 class CellObj implements ICellObj {
   id: number;
@@ -34,7 +34,7 @@ class CellObj implements ICellObj {
   }
 
   getCol(cellIndex: number, cols: number): number {
-    if (cellIndex > cols) return cellIndex % (cols * (this.row - 1));
+    if (cellIndex > cols) return cellIndex % (cols * (this.row - 1)) || cols;
     return cellIndex;
   }
 
@@ -58,16 +58,19 @@ class CellObj implements ICellObj {
     return neighbours;
   }
 
-  updateUser(userId: number) {
-    this.completedUser = userId;
+  updateUser(user: number) {
+    this.completedUser = user;
   }
 
   updateCompleted(updateTo = true) {
     this.completed = updateTo;
   }
 
-  updateLine(direction: TDirections, updateTo = true) {
-    if (updateTo && Object.values(this.lines).filter(Boolean).length === 3) this.updateCompleted();
+  updateLine(direction: TDirections, user: TUsers, updateTo = true) {
+    if (updateTo && Object.values(this.lines).filter(Boolean).length === 3) {
+      this.updateUser(user);
+      this.updateCompleted();
+    }
     this.lines[direction] = updateTo;
   }
 }

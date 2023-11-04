@@ -1,37 +1,36 @@
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import clsx from 'clsx';
-import { ICellObj, TDirections } from '../types';
+import { ICellObj, TDirections, TUsers } from '../types';
 import { useRerender } from '../services';
+import { EUsers } from '../common';
 
 function Cell({
   cellObj,
-  rows,
-  cols,
+  user,
   updateNeighbourLine,
+  changeUser,
 }: {
   cellObj: ICellObj;
-  rows: number;
-  cols: number;
-  updateNeighbourLine: (curCellObj: ICellObj, direction: TDirections) => void;
+  user: TUsers;
+  updateNeighbourLine: (curCellObj: ICellObj, direction: TDirections, user: TUsers) => void;
+  changeUser: () => void;
 }) {
   const rerender = useRerender();
 
   function handleClick(direction: TDirections) {
-    console.log(direction, cellObj.id, cellObj.lines);
-
-    cellObj.updateLine(direction);
-    updateNeighbourLine(cellObj, direction);
-
-    rerender();
-    console.log(direction, cellObj.id, cellObj.lines);
+    const lineIsEmpty = !cellObj.lines[direction];
+    if (lineIsEmpty) {
+      cellObj.updateLine(direction, user);
+      updateNeighbourLine(cellObj, direction, user);
+      changeUser();
+      rerender();
+    }
   }
 
   const lineClasses = (direction: TDirections) => ({
     [direction]: direction,
     chosen: cellObj.lines[direction],
-    user1: cellObj.completedUser === 1,
-    user2: cellObj.completedUser === 2,
   });
 
   return (
@@ -40,6 +39,8 @@ function Cell({
         completed: cellObj.completed,
         hideTop: cellObj.neighbours.top,
         hideLeft: cellObj.neighbours.left,
+        user1: cellObj.completedUser === EUsers.First,
+        user2: cellObj.completedUser === EUsers.second,
       })}
     >
       <button
