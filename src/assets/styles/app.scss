@@ -2,10 +2,23 @@
 @import 'bootstrap/dist/css/bootstrap-reboot.css';
 @import './cell.scss';
 
-.game-wrapper {
+.wrapper {
   display: flex;
   justify-content: center;
 }
+form {
+  input {
+    width: 50px;
+    margin-inline: 5px;
+  }
+  label {
+    margin-inline-start: 5px;
+  }
+  button {
+    margin-inline-start: 15px;
+  }
+}
+
 .game-container {
   display: grid;
   justify-content: center;

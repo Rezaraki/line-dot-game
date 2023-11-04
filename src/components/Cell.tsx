@@ -3,7 +3,6 @@
 import clsx from 'clsx';
 import { ICellObj, TDirections } from '../types';
 import { useRerender } from '../services';
-import { EDirections } from '../common';
 
 function Cell({
   cellObj,
