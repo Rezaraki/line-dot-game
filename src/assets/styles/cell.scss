@@ -1,0 +1,61 @@
+.cell {
+  background-color: rgba(255, 255, 255, 0.8);
+  height: 50px;
+  width: 50px;
+  //   border: 1px solid rgba(0, 0, 0, 0.8);
+  font-size: 30px;
+  position: relative;
+  button {
+    border: none;
+    padding: 0;
+    background-color: rgb(237, 233, 233);
+    position: absolute;
+    &:hover {
+      background-color: plum;
+    }
+  }
+  .block {
+    width: 44px;
+    height: 3px;
+    left: 3px;
+  }
+  .top {
+    top: 0;
+  }
+  .bottom {
+    bottom: 0;
+  }
+  .inline {
+    width: 3px;
+    height: 44px;
+    top: 3px;
+  }
+  .right {
+    right: 0px;
+  }
+  .left {
+    left: 0px;
+  }
+  &.hideLeft {
+    .left {
+      display: none;
+    }
+  }
+  &.hideTop {
+    .top {
+      display: none;
+    }
+  }
+  user1 {
+    background-color: blue;
+  }
+  user2 {
+    background-color: red;
+  }
+  .chosen {
+    background-color: blueviolet;
+  }
+  &.completed {
+    background-color: black;
+  }
+}

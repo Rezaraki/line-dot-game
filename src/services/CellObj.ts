@@ -20,10 +20,10 @@ class CellObj implements ICellObj {
     this.id = cellIndex;
     this.completedUser = null;
     this.completed = false;
-    this.neighbours = this.getNeighbours(cellIndex, cols, rows);
     this.lines = { top: false, bottom: false, right: false, left: false };
     this.row = this.getRow(cellIndex, cols, rows);
     this.col = this.getCol(cellIndex, cols);
+    this.neighbours = this.getNeighbours(cellIndex, cols, rows);
   }
 
   getRow(cellIndex: number, cols: number, rows: number): number {
@@ -34,7 +34,7 @@ class CellObj implements ICellObj {
   }
 
   getCol(cellIndex: number, cols: number): number {
-    if (cellIndex > cols) return cellIndex % (cols * this.row);
+    if (cellIndex > cols) return cellIndex % (cols * (this.row - 1));
     return cellIndex;
   }
 
@@ -44,6 +44,7 @@ class CellObj implements ICellObj {
     if (this.row === 1) {
       neighbours.top = false;
     }
+
     if (this.row === rows) {
       neighbours.bottom = false;
     }
@@ -57,7 +58,16 @@ class CellObj implements ICellObj {
     return neighbours;
   }
 
+  updateUser(userId: number) {
+    this.completedUser = userId;
+  }
+
+  updateCompleted(updateTo = true) {
+    this.completed = updateTo;
+  }
+
   updateLine(direction: TDirections, updateTo = true) {
+    if (updateTo && Object.values(this.lines).filter(Boolean).length === 3) this.updateCompleted();
     this.lines[direction] = updateTo;
   }
 }
