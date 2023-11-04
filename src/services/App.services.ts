@@ -18,7 +18,6 @@ function findNeighbour(cellsArr: ICellObj[], curCellObj: ICellObj, direction: TD
     const neighbourIndex = cellsArr.findIndex(
       (cell) => cell.row === curCellObj.row + 1 && cell.col === curCellObj.col,
     );
-    debugger;
     return cellsArr[neighbourIndex].id;
   }
 
@@ -39,8 +38,4 @@ function updateNeighbourLine(
   }
 }
 
-function countScores(cellsArr: ICellObj[], userNumber: number): number {
-  return cellsArr.filter((cell) => cell.completedUser === userNumber).length;
-}
-
-export { findNeighbour, updateNeighbourLine, countScores };
+export { findNeighbour, updateNeighbourLine };
